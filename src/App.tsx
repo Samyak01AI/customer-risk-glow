@@ -48,6 +48,7 @@ const App = () => (
               <Route path="resolutions" element={<ResolutionHistory />} />
               <Route path="settings" element={<SystemSettings />} />
               <Route path="users" element={<UserManagement />} />
+              <Route path="architecture" element={<SystemArchitecture />} />
             </Route>
             <Route path="*" element={<NotFound />} />
           </Routes>
