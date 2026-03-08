@@ -5,17 +5,19 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Activity, Shield } from "lucide-react";
+import { Activity, Shield, Users, Headphones } from "lucide-react";
+import { useRole, UserRole } from "@/contexts/RoleContext";
 
 const Login = () => {
   const navigate = useNavigate();
+  const { setRole } = useRole();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [role, setRole] = useState("");
+  const [selectedRole, setSelectedRole] = useState<string>("");
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
-    // Mock login — navigate to dashboard
+    setRole((selectedRole || "admin") as UserRole);
     navigate("/dashboard");
   };
 
@@ -38,26 +40,15 @@ const Login = () => {
             <form onSubmit={handleLogin} className="space-y-5">
               <div className="space-y-2">
                 <Label htmlFor="email">Email / Username</Label>
-                <Input
-                  id="email"
-                  placeholder="admin@bankpulse.ai"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
+                <Input id="email" placeholder="admin@bankpulse.ai" value={email} onChange={(e) => setEmail(e.target.value)} />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="password">Password</Label>
-                <Input
-                  id="password"
-                  type="password"
-                  placeholder="••••••••"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                />
+                <Input id="password" type="password" placeholder="••••••••" value={password} onChange={(e) => setPassword(e.target.value)} />
               </div>
               <div className="space-y-2">
                 <Label>Login As</Label>
-                <Select value={role} onValueChange={setRole}>
+                <Select value={selectedRole} onValueChange={setSelectedRole}>
                   <SelectTrigger>
                     <SelectValue placeholder="Select Role" />
                   </SelectTrigger>
@@ -65,8 +56,12 @@ const Login = () => {
                     <SelectItem value="admin">
                       <span className="flex items-center gap-2"><Shield className="h-4 w-4" /> Bank Admin</span>
                     </SelectItem>
-                    <SelectItem value="rm">Relationship Manager</SelectItem>
-                    <SelectItem value="support">Support Agent</SelectItem>
+                    <SelectItem value="rm">
+                      <span className="flex items-center gap-2"><Users className="h-4 w-4" /> Relationship Manager</span>
+                    </SelectItem>
+                    <SelectItem value="support">
+                      <span className="flex items-center gap-2"><Headphones className="h-4 w-4" /> Support Agent</span>
+                    </SelectItem>
                   </SelectContent>
                 </Select>
               </div>
