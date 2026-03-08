@@ -20,6 +20,11 @@ export interface Customer {
   sentimentScore: number;
   lastComplaint: string;
   aiRiskReasons: string[];
+  aiConfidence: number;
+  competitorInterest: "High" | "Medium" | "Low";
+  marketSignals: string[];
+  recommendedAction: string;
+  journeyEvents: { date: string; event: string; type: "info" | "warning" | "success" | "danger" }[];
 }
 
 export const customers: Customer[] = [
@@ -44,6 +49,20 @@ export const customers: Customer[] = [
     complaintCount: 4,
     sentimentScore: 0.28,
     lastComplaint: "Disputed charge on credit card",
+    aiConfidence: 0.91,
+    competitorInterest: "High",
+    marketSignals: ["Competitor app installed", "Salary change detected", "Searched for loan comparison"],
+    recommendedAction: "Offer 5% cashback incentive + Schedule RM call for EMI restructuring",
+    journeyEvents: [
+      { date: "2024-01-10", event: "Account opened", type: "success" },
+      { date: "2024-03-15", event: "Personal loan approved", type: "info" },
+      { date: "2024-06-20", event: "Credit card issued", type: "info" },
+      { date: "2024-09-05", event: "First complaint raised", type: "warning" },
+      { date: "2024-11-12", event: "App activity dropped 70%", type: "danger" },
+      { date: "2024-12-01", event: "EMI payment overdue", type: "danger" },
+      { date: "2025-01-03", event: "AI flagged high churn risk", type: "danger" },
+      { date: "2025-01-05", event: "Retention campaign triggered", type: "success" },
+    ],
     aiRiskReasons: [
       "Mobile app login dropped 70% in last 30 days",
       "UPI transaction frequency down from 15/week to 2/week",
@@ -73,6 +92,17 @@ export const customers: Customer[] = [
     complaintCount: 1,
     sentimentScore: 0.55,
     lastComplaint: "ATM withdrawal issue",
+    aiConfidence: 0.85,
+    competitorInterest: "Medium",
+    marketSignals: ["FD maturity approaching", "Salary credit reduced 20%"],
+    recommendedAction: "Offer FD renewal with loyalty bonus rate",
+    journeyEvents: [
+      { date: "2023-06-15", event: "Account opened", type: "success" },
+      { date: "2023-09-10", event: "FD created", type: "info" },
+      { date: "2024-08-20", event: "ATM complaint raised", type: "warning" },
+      { date: "2024-11-01", event: "Salary credit decreased", type: "warning" },
+      { date: "2025-01-02", event: "FD maturity approaching", type: "info" },
+    ],
     aiRiskReasons: [
       "Salary credit amount decreased by 20%",
       "Increased cash withdrawals from ATM",
@@ -100,6 +130,17 @@ export const customers: Customer[] = [
     complaintCount: 0,
     sentimentScore: 0.92,
     lastComplaint: "None",
+    aiConfidence: 0.96,
+    competitorInterest: "Low",
+    marketSignals: ["Stable income pattern", "No competitor signals"],
+    recommendedAction: "Cross-sell premium insurance product",
+    journeyEvents: [
+      { date: "2022-03-01", event: "Account opened", type: "success" },
+      { date: "2022-06-15", event: "Business loan approved", type: "info" },
+      { date: "2023-01-10", event: "Insurance purchased", type: "success" },
+      { date: "2024-05-20", event: "Credit card upgraded", type: "success" },
+      { date: "2025-01-01", event: "Consistent high engagement", type: "success" },
+    ],
     aiRiskReasons: [
       "Stable and growing transaction pattern",
       "High engagement across all channels",
@@ -126,6 +167,18 @@ export const customers: Customer[] = [
     complaintCount: 3,
     sentimentScore: 0.35,
     lastComplaint: "App crash during fund transfer",
+    aiConfidence: 0.88,
+    competitorInterest: "High",
+    marketSignals: ["Mutual fund SIP stopped", "Competitor offers detected", "Relocation detected"],
+    recommendedAction: "Offer mutual fund SIP restart bonus + Follow up on app crash",
+    journeyEvents: [
+      { date: "2023-02-10", event: "Account opened", type: "success" },
+      { date: "2023-05-20", event: "Mutual fund SIP started", type: "info" },
+      { date: "2024-06-15", event: "App crash complaint", type: "warning" },
+      { date: "2024-09-01", event: "SIP stopped without reason", type: "danger" },
+      { date: "2024-11-10", event: "App activity dropped 60%", type: "danger" },
+      { date: "2025-01-02", event: "AI flagged high churn risk", type: "danger" },
+    ],
     aiRiskReasons: [
       "App activity dropped 60% month-over-month",
       "Mutual fund SIP stopped without reason",
@@ -154,6 +207,17 @@ export const customers: Customer[] = [
     complaintCount: 1,
     sentimentScore: 0.62,
     lastComplaint: "Interest rate inquiry",
+    aiConfidence: 0.82,
+    competitorInterest: "Medium",
+    marketSignals: ["FD premature closure inquiry", "Large withdrawal pattern"],
+    recommendedAction: "Highlight competitive FD rates + Proactive RM call",
+    journeyEvents: [
+      { date: "2021-08-15", event: "Account opened", type: "success" },
+      { date: "2022-01-10", event: "FD created", type: "info" },
+      { date: "2023-06-20", event: "RD started", type: "info" },
+      { date: "2024-10-05", event: "Large withdrawal detected", type: "warning" },
+      { date: "2024-12-15", event: "FD premature closure inquiry", type: "warning" },
+    ],
     aiRiskReasons: [
       "Large withdrawal pattern in last 2 months",
       "FD premature closure inquiry raised",
@@ -180,6 +244,16 @@ export const customers: Customer[] = [
     complaintCount: 0,
     sentimentScore: 0.88,
     lastComplaint: "None",
+    aiConfidence: 0.94,
+    competitorInterest: "Low",
+    marketSignals: ["Stable employment", "Growing transaction volume"],
+    recommendedAction: "Cross-sell credit card with welcome bonus",
+    journeyEvents: [
+      { date: "2024-01-05", event: "Account opened", type: "success" },
+      { date: "2024-03-10", event: "UPI activated", type: "info" },
+      { date: "2024-06-15", event: "Transaction volume growing", type: "success" },
+      { date: "2025-01-01", event: "Consistently high engagement", type: "success" },
+    ],
     aiRiskReasons: [
       "Consistently high engagement",
       "Growing transaction volume month-over-month",
