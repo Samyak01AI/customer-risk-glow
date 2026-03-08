@@ -1,7 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
-import { BrainCircuit, TrendingDown, Users, ShieldAlert, MessageSquareWarning } from "lucide-react";
+import { BrainCircuit, TrendingDown, Users, ShieldAlert, Activity, CheckCircle, Clock, AlertTriangle } from "lucide-react";
 import { customers } from "@/data/mockData";
 import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer, RadarChart, Radar, PolarGrid, PolarAngleAxis, PolarRadiusAxis } from "recharts";
 
@@ -12,6 +12,13 @@ const modelMetrics = [
   { model: "Sentiment Analysis", accuracy: 89, precision: 87, recall: 85, f1: 86 },
   { model: "Customer Segmentation", accuracy: 92, precision: 90, recall: 91, f1: 90 },
   { model: "Risk Scoring", accuracy: 96, precision: 93, recall: 92, f1: 92 },
+];
+
+const modelStatus = [
+  { model: "Churn Prediction", accuracy: 89, precision: 86, recall: 83, lastUpdate: "3 days ago", status: "healthy" },
+  { model: "Sentiment Analysis", accuracy: 91, precision: 88, recall: 85, lastUpdate: "1 day ago", status: "healthy" },
+  { model: "Risk Scoring", accuracy: 94, precision: 91, recall: 89, lastUpdate: "5 hours ago", status: "healthy" },
+  { model: "Customer Segmentation", accuracy: 87, precision: 84, recall: 82, lastUpdate: "7 days ago", status: "warning" },
 ];
 
 const segmentData = [
@@ -58,6 +65,55 @@ const AIInsights = () => {
           </Card>
         ))}
       </div>
+
+      {/* AI Model Status Widget */}
+      <Card className="shadow-sm border-accent/20">
+        <CardHeader className="pb-3">
+          <CardTitle className="flex items-center gap-2 text-base">
+            <Activity className="h-4 w-4 text-accent" />
+            AI Model Status
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="grid gap-3 md:grid-cols-2">
+            {modelStatus.map(m => (
+              <div key={m.model} className="rounded-lg border p-4 space-y-3">
+                <div className="flex items-center justify-between">
+                  <span className="text-sm font-semibold">{m.model}</span>
+                  <div className="flex items-center gap-1.5">
+                    {m.status === "healthy" ? (
+                      <CheckCircle className="h-4 w-4 text-[hsl(var(--risk-low))]" />
+                    ) : (
+                      <AlertTriangle className="h-4 w-4 text-[hsl(var(--risk-medium))]" />
+                    )}
+                    <span className={`text-xs font-medium ${m.status === "healthy" ? "text-[hsl(var(--risk-low))]" : "text-[hsl(var(--risk-medium))]"}`}>
+                      {m.status === "healthy" ? "Healthy" : "Needs Retrain"}
+                    </span>
+                  </div>
+                </div>
+                <div className="grid grid-cols-3 gap-2 text-center">
+                  <div className="rounded bg-muted p-2">
+                    <p className="text-lg font-bold font-mono">{m.accuracy}%</p>
+                    <p className="text-[10px] text-muted-foreground">Accuracy</p>
+                  </div>
+                  <div className="rounded bg-muted p-2">
+                    <p className="text-lg font-bold font-mono">{m.precision}%</p>
+                    <p className="text-[10px] text-muted-foreground">Precision</p>
+                  </div>
+                  <div className="rounded bg-muted p-2">
+                    <p className="text-lg font-bold font-mono">{m.recall}%</p>
+                    <p className="text-[10px] text-muted-foreground">Recall</p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
+                  <Clock className="h-3 w-3" />
+                  Last updated: {m.lastUpdate}
+                </div>
+              </div>
+            ))}
+          </div>
+        </CardContent>
+      </Card>
 
       <div className="grid gap-4 md:grid-cols-2">
         <Card className="shadow-sm">

@@ -29,6 +29,7 @@ const adminNav: NavItem[] = [
   { title: "AI Model Insights", url: "/dashboard/insights", icon: BrainCircuit },
   { title: "System Configuration", url: "/dashboard/settings", icon: Settings },
   { title: "User Management", url: "/dashboard/users", icon: UserCog },
+  { title: "System Architecture", url: "/dashboard/architecture", icon: Activity },
 ];
 
 const rmNav: NavItem[] = [

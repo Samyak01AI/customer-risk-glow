@@ -19,6 +19,7 @@ import SupportTickets from "./pages/SupportTickets";
 import ResolutionHistory from "./pages/ResolutionHistory";
 import SystemSettings from "./pages/SystemSettings";
 import UserManagement from "./pages/UserManagement";
+import SystemArchitecture from "./pages/SystemArchitecture";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -47,6 +48,7 @@ const App = () => (
               <Route path="resolutions" element={<ResolutionHistory />} />
               <Route path="settings" element={<SystemSettings />} />
               <Route path="users" element={<UserManagement />} />
+              <Route path="architecture" element={<SystemArchitecture />} />
             </Route>
             <Route path="*" element={<NotFound />} />
           </Routes>
