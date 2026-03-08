@@ -19,6 +19,7 @@ import SupportTickets from "./pages/SupportTickets";
 import ResolutionHistory from "./pages/ResolutionHistory";
 import SystemSettings from "./pages/SystemSettings";
 import UserManagement from "./pages/UserManagement";
+import SystemArchitecture from "./pages/SystemArchitecture";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
