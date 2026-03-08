@@ -1,0 +1,66 @@
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Gift, Phone, Mail, BrainCircuit, TrendingDown, CreditCard, Smartphone } from "lucide-react";
+import { customers } from "@/data/mockData";
+
+const actions = [
+  { customerId: "1", customerName: "Rahul Sharma", riskLevel: "High" as const, riskScore: 0.82, actions: [
+    { type: "offer", label: "Send 5% cashback offer on credit card", icon: Gift },
+    { type: "call", label: "Schedule RM call to discuss EMI restructuring", icon: Phone },
+    { type: "email", label: "Send personalized financial wellness tips", icon: Mail },
+  ]},
+  { customerId: "4", customerName: "Sneha Kulkarni", riskLevel: "High" as const, riskScore: 0.67, actions: [
+    { type: "offer", label: "Offer mutual fund SIP restart bonus", icon: CreditCard },
+    { type: "call", label: "Follow up on app crash complaint", icon: Phone },
+    { type: "email", label: "Send app update notification with new features", icon: Smartphone },
+  ]},
+  { customerId: "2", customerName: "Priya Patil", riskLevel: "Medium" as const, riskScore: 0.41, actions: [
+    { type: "offer", label: "FD renewal with loyalty bonus rate", icon: Gift },
+    { type: "email", label: "Send salary account upgrade benefits", icon: Mail },
+  ]},
+  { customerId: "5", customerName: "Vikram Joshi", riskLevel: "Medium" as const, riskScore: 0.33, actions: [
+    { type: "offer", label: "Highlight competitive FD rates", icon: Gift },
+    { type: "call", label: "Proactive call about FD maturity options", icon: Phone },
+  ]},
+];
+
+const riskBadge: Record<string, string> = { Low: "risk-badge-low", Medium: "risk-badge-medium", High: "risk-badge-high" };
+
+const RecommendedActions = () => (
+  <div className="space-y-6">
+    <div>
+      <h2 className="text-2xl font-bold">Recommended Actions</h2>
+      <p className="text-muted-foreground">AI-suggested retention actions for at-risk customers</p>
+    </div>
+
+    <div className="grid gap-4 md:grid-cols-2">
+      {actions.map(a => (
+        <Card key={a.customerId} className="shadow-sm">
+          <CardHeader className="pb-3">
+            <div className="flex items-center justify-between">
+              <CardTitle className="text-base">{a.customerName}</CardTitle>
+              <div className="flex items-center gap-2">
+                <span className="text-sm font-mono font-semibold">{a.riskScore.toFixed(2)}</span>
+                <Badge variant="secondary" className={`${riskBadge[a.riskLevel]} border-0`}>{a.riskLevel}</Badge>
+              </div>
+            </div>
+          </CardHeader>
+          <CardContent className="space-y-3">
+            {a.actions.map((act, i) => (
+              <div key={i} className="flex items-center gap-3 rounded-lg bg-muted/50 p-3">
+                <act.icon className="h-4 w-4 shrink-0 text-accent" />
+                <span className="text-sm flex-1">{act.label}</span>
+                <Button size="sm" variant={act.type === "offer" ? "default" : "outline"} className={act.type === "offer" ? "bg-accent text-accent-foreground hover:bg-accent/90" : ""}>
+                  {act.type === "offer" ? "Send" : act.type === "call" ? "Schedule" : "Email"}
+                </Button>
+              </div>
+            ))}
+          </CardContent>
+        </Card>
+      ))}
+    </div>
+  </div>
+);
+
+export default RecommendedActions;

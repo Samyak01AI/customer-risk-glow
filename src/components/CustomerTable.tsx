@@ -24,9 +24,12 @@ const CustomerTable = ({ customers }: CustomerTableProps) => {
         <TableHeader>
           <TableRow className="bg-muted/50">
             <TableHead className="font-semibold">Customer</TableHead>
+            <TableHead className="font-semibold">ID</TableHead>
             <TableHead className="font-semibold">Risk Score</TableHead>
             <TableHead className="font-semibold">Risk Level</TableHead>
             <TableHead className="font-semibold">Last Activity</TableHead>
+            <TableHead className="font-semibold">UPI/Week</TableHead>
+            <TableHead className="font-semibold">Loan Status</TableHead>
             <TableHead className="font-semibold text-right">Action</TableHead>
           </TableRow>
         </TableHeader>
@@ -34,6 +37,7 @@ const CustomerTable = ({ customers }: CustomerTableProps) => {
           {customers.map((c) => (
             <TableRow key={c.id} className="hover:bg-muted/30 transition-colors">
               <TableCell className="font-medium">{c.name}</TableCell>
+              <TableCell className="font-mono text-sm text-muted-foreground">CUS-{c.id.padStart(4, "0")}</TableCell>
               <TableCell>
                 <span className="font-mono font-semibold">{c.riskScore.toFixed(2)}</span>
               </TableCell>
@@ -43,6 +47,8 @@ const CustomerTable = ({ customers }: CustomerTableProps) => {
                 </Badge>
               </TableCell>
               <TableCell className="text-muted-foreground">{c.lastActivity}</TableCell>
+              <TableCell>{c.upiFrequency}</TableCell>
+              <TableCell className="text-sm">{c.emiStatus}</TableCell>
               <TableCell className="text-right">
                 <Button
                   size="sm"

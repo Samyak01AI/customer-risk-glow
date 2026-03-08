@@ -1,41 +1,62 @@
 import {
-  LayoutDashboard,
-  Users,
-  BarChart3,
-  MessageSquareWarning,
-  Megaphone,
-  BrainCircuit,
-  LogOut,
-  Activity,
+  LayoutDashboard, Users, BarChart3, MessageSquareWarning, Megaphone,
+  BrainCircuit, LogOut, Activity, Settings, UserCog, ShieldAlert,
+  UserCheck, Send, History, Headphones, TicketCheck, CheckCircle,
+  Bell,
 } from "lucide-react";
 import { NavLink } from "@/components/NavLink";
 import { useNavigate } from "react-router-dom";
 import {
-  Sidebar,
-  SidebarContent,
-  SidebarGroup,
-  SidebarGroupContent,
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
-  SidebarFooter,
-  useSidebar,
+  Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent,
+  SidebarMenu, SidebarMenuButton, SidebarMenuItem, SidebarFooter, useSidebar,
 } from "@/components/ui/sidebar";
 import { Button } from "@/components/ui/button";
+import { useRole } from "@/contexts/RoleContext";
+import type { LucideIcon } from "lucide-react";
 
-const navItems = [
+interface NavItem {
+  title: string;
+  url: string;
+  icon: LucideIcon;
+}
+
+const adminNav: NavItem[] = [
   { title: "Dashboard", url: "/dashboard", icon: LayoutDashboard },
-  { title: "Customers", url: "/dashboard/customers", icon: Users },
-  { title: "Risk Analytics", url: "/dashboard/risk", icon: BarChart3 },
-  { title: "Complaint Monitoring", url: "/dashboard/complaints", icon: MessageSquareWarning },
-  { title: "Campaign Manager", url: "/dashboard/campaigns", icon: Megaphone },
-  { title: "AI Insights", url: "/dashboard/insights", icon: BrainCircuit },
+  { title: "Customer Analytics", url: "/dashboard/customers", icon: Users },
+  { title: "Risk Monitoring", url: "/dashboard/risk", icon: BarChart3 },
+  { title: "Campaign Performance", url: "/dashboard/campaigns", icon: Megaphone },
+  { title: "Complaint Analytics", url: "/dashboard/complaints", icon: MessageSquareWarning },
+  { title: "AI Model Insights", url: "/dashboard/insights", icon: BrainCircuit },
+  { title: "System Configuration", url: "/dashboard/settings", icon: Settings },
+  { title: "User Management", url: "/dashboard/users", icon: UserCog },
 ];
+
+const rmNav: NavItem[] = [
+  { title: "Dashboard", url: "/dashboard", icon: LayoutDashboard },
+  { title: "High Risk Customers", url: "/dashboard/risk", icon: ShieldAlert },
+  { title: "Customer Profiles", url: "/dashboard/customers", icon: UserCheck },
+  { title: "Outreach Campaigns", url: "/dashboard/campaigns", icon: Send },
+  { title: "Recommended Actions", url: "/dashboard/actions", icon: BrainCircuit },
+  { title: "Interaction History", url: "/dashboard/history", icon: History },
+];
+
+const supportNav: NavItem[] = [
+  { title: "Dashboard", url: "/dashboard", icon: LayoutDashboard },
+  { title: "Complaint Monitoring", url: "/dashboard/complaints", icon: MessageSquareWarning },
+  { title: "Sentiment Alerts", url: "/dashboard/sentiment", icon: Bell },
+  { title: "Customer Profiles", url: "/dashboard/customers", icon: Users },
+  { title: "Support Tickets", url: "/dashboard/tickets", icon: TicketCheck },
+  { title: "Resolution History", url: "/dashboard/resolutions", icon: CheckCircle },
+];
+
+const navByRole = { admin: adminNav, rm: rmNav, support: supportNav };
 
 export function AppSidebar() {
   const { state } = useSidebar();
   const collapsed = state === "collapsed";
   const navigate = useNavigate();
+  const { role, roleName } = useRole();
+  const navItems = navByRole[role];
 
   return (
     <Sidebar collapsible="icon" className="border-r-0">
@@ -46,7 +67,7 @@ export function AppSidebar() {
         {!collapsed && (
           <div>
             <h2 className="text-sm font-bold text-sidebar-primary-foreground">BANKPULSE AI</h2>
-            <p className="text-[10px] text-sidebar-foreground/50">Churn Intelligence</p>
+            <p className="text-[10px] text-sidebar-foreground/50">{roleName}</p>
           </div>
         )}
       </div>
